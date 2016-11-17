@@ -1,0 +1,179 @@
+<ion-view hide-nav-bar="true">
+    <ion-pane>
+        <ion-content scroll="false">
+            <tab-slide-box tab="0">
+                <div class="tsb-icons">
+                    <div class="tsb-ic-wrp">
+                        <span class="logo">
+                            <img src="images/logo-m.png" alt="TinTM">
+                        </span>
+                        <ion-scroll direction="x" class="tsb-hscroll">
+                            <a href="javascript:;" id="first-menu">Nóng</a>
+                            <a href="javascript:;">Xu hướng</a>
+                            <!--<a href="javascript:;">Top share</a>-->
+                            <a href="javascript:;">Việt Nam</a>
+                            <a href="javascript:;">Thế giới</a>
+                            <a href="javascript:;">Kinh doanh</a>
+                            <a href="javascript:;">KH - CN</a>
+                            <a href="javascript:;">Giáo dục</a>
+                            <a href="javascript:;">Y tế</a>
+                            <a href="javascript:;">Giải trí</a>
+                            <a href="javascript:;">Thể thao</a>
+                            <a href="javascript:;">Đời sống</a>
+                            <a href="javascript:;" id="last-menu">Khác</a>
+                        </ion-scroll>
+                        <!--<img id="more-left" class="arrow arrow-left" src="images/ic_arrow_left_48px.png">
+                        <img id="more-right" class="arrow arrow-right" src="images/ic_arrow_right_48px.png">-->
+                    </div>
+                </div>
+                <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+                    <!--Tin noi bat-->
+                    <ion-slide class="slide-content row tm-row" bindonce ng-repeat="cat in cats">
+                        <!-- Right -->
+                        <div class="col s4 m4 right relative" ng-init="topshareCat = 10;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth || (cat !== undefined && currentCatId == cat)">
+                            <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in articles[topshareCat] track by article.NewsId" bo-class="{'have-thumb': article.haveImage}">
+                                <div class="card card-small">
+                                    <div class="main-content" ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
+                                        <div class="card-image">
+                                            <a target="_blank">
+                                                <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}">
+                                            </a>
+                                        </div>
+                                        <div class="card-content">
+                                            <a target="_blank" class="article-title-a">
+                                                <h2>{{::article.Title}}</h2>
+                                            </a>
+                                            <div class="news-info main">
+                                                <span class="news-source" bo-bind="::article.SourceName"></span>
+                                                <span class="news-time">
+                                                    <span class="timeago" time-ago="" from-time="{{::article.TimeString}}"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ion-item>
+                            <ion-spinner ng-if="loading[topshareCat]"></ion-spinner>
+                        </div>
+                        <!-- End right -->
+                        <!-- Left -->
+                        <div infinite-scroll='loadArticlesForCat(cat)' infinite-scroll-distance='5' infinite-scroll-parent="true" ng-if="cat !== undefined && currentCatId == cat" ng-class="{'col s8 m8': isLargeWidth}">
+                            <div >
+                                <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in articles[cat] track by article.NewsId">
+                                    <div class="tm-row">
+                                        <div class="col s12 m12">
+                                            <div class="card" ng-class="{'card-small': !article.isBig}">
+                                                <div class="main-content">
+                                                    <div class="card-image">
+                                                        <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })" target="_blank">
+                                                            <img hide-image-if-not-exists bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images || article.Thumbnail">
+                                                        </a>
+                                                    </div>
+                                                    <div class="info">
+                                                        <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })" target="_blank" class="article-title-a">
+                                                            <div class="card-title item-text-wrap font-23" bo-bind="::article.Title"></div>
+                                                        </a>
+                                                        <div class="news-info main">
+                                                            <span class="news-source" bo-bind="::article.SourceName"></span>
+                                                            <span class="news-time">
+                                                                <span class="timeago" time-ago="" from-time="{{::article.TimeString}}"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-content float-left">
+                                                        <p bo-bind="::article.Summary" class="summary font-15" ng-class="{expanded: article.isExpandedRelative}" ng-click="expandedRelative(article); log('[DEBUG], click summary')"></p>
+                                                    </div>
+
+                                                    <div class="card-action">
+                                                        <div class="horizontal-line"></div>
+                                                        <!--<div class="social social-item fb-like" style="width: 40%">
+                                        <iframe ng-src="{{article.FacebookShare}}" scrolling='no' frameborder='0' style='border:none; overflow:hidden; width:90px;height:20px; margin:0 auto;text-align:center;float: left;' allowtransparency='true'></iframe>
+                                    </div>
+                                    <a style="float:left; width: 50px" class="social-share" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://sm.smartapp.tech{{::article.Path}}"
+                                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                        <img src="images/facebook-32.png" alt="Share on Facebook" />
+                                    </a>
+                                    <a style="float:left" class="social-share" href="https://plus.google.com/share?url=http://sm.smartapp.tech{{::article.Path}}"
+                                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                                        <img src="images/gplus-32.png" alt="Share on Google+" />
+                                    </a>-->
+
+                                                        <button ripple class="button" ng-if="article.Related > 0" ng-click="expandedRelative(article); log('[DEBUG], expand relative')">
+                                                            <ion-icon class="ion-ios-arrow-down"></ion-icon>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <ion-spinner ng-if="loadingRelative[article.NewsId]"></ion-spinner>
+                                                <div id="section-relative" ng-class="{expanded: article.isExpandedRelative}">
+                                                    <div class="relative" ng-if="!loadingRelative[article.NewsId]">
+                                                        <h2>Tin liên quan</h2>
+                                                        <ion-list>
+                                                            <ion-item class="horizontal" ng-repeat="article in articlesRelative[article.NewsId] track by article.NewsId" bindonce>
+                                                                <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })" target="_blank">
+                                                                    <img hide-image-if-not-exists bo-src="article.Images || article.Thumbnail" alt="{::{article.Title}}" ng-if="article.Thumbnail || article.Images" />
+                                                                </a>
+                                                                <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })" target="_blank"><h2>{{::article.Title}}</h2></a>
+                                                                <div class="news-info">
+                                                                    <span class="news-source" bo-bind="::article.SourceName"></span>
+                                                                    <span class="news-time">
+                                                                        <span class="timeago" time-ago="" from-time="{{::article.TimeString}}"></span>
+                                                                    </span>
+                                                                    <span class="card-action">
+                                                                        <!--<a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
+                                                      <button ripple class="button">
+                                                        <ion-icon class="ion-ios-bolt"></ion-icon>
+                                                      </button>
+                                                    </a>-->
+                                                                    </span>
+                                                                </div>
+                                                            </ion-item>
+                                                        </ion-list>
+                                                        <div class="action">
+                                                            <!--<button class="button left" ng-if="article.Related > 3">Xem thêm {{article.Related}} tin liên quan</button>-->
+                                                            <button ripple class="button right no-bold" ng-if="article.Related > 0" ng-click="expandedRelative(article); log('[DEBUG], collapse relative')">
+                                                                Đóng <ion-icon class="ion-ios-arrow-up"></ion-icon>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ion-item>
+                            </div>
+                            <div ng-if="cat !== undefined && currentCatId == cat">
+                                <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="specialArticle in specialArticles[cat] track by specialArticle.Id">
+                                    <div class="tm-row">
+                                        <div class="col s12 m12">
+                                            <div class="card" ng-class="{'card-small': !specialArticle.isBig}">
+                                                <div class="main-content">
+                                                    <div class="card-image">
+                                                        <a ng-click="trendingDetail({trendingId: specialArticle.Id, trendingTitle: specialArticle.Title})" target="_blank">
+                                                            <img hide-image-if-not-exists-remove bo-src="::specialArticle.Image" alt="{{::specialArticle.Title}}" ng-if="specialArticle.Image || specialArticle.Thumbnail">
+                                                        </a>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <a ng-click="trendingDetail({trendingId: specialArticle.Id, trendingTitle: specialArticle.Title})" target="_blank" class="article-title-a">
+                                                            <div class="card-title item-text-wrap" bo-bind="::specialArticle.Title"></div>
+                                                        </a>
+                                                        <p bo-bind="::specialArticle.Description" class="summary" ng-class="{expanded: isExpandedSummary}" ng-click="isExpandedSummary = !isExpandedSummary"></p>
+                                                    </div>
+                                                    <div class="card-action">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ion-item>
+                            </div>
+                            <ion-spinner ng-if="loading[cat]"></ion-spinner>
+                        </div>
+                        <!-- End Left -->      
+                    </ion-slide>
+                    <!--Tin noi bat-->
+                </ion-slide-box>
+            </tab-slide-box>
+        </ion-content>
+    </ion-pane>
+</ion-view>
+

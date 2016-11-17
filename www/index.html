@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="vi_VN">
+<head>
+    <meta charset="utf-8" />
+
+    <!--
+        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
+        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+    <title>TinTM</title>
+
+    <!-- TinTM references -->
+    <link href="css/index.css" rel="stylesheet" />
+
+    <!--<base href="/">-->
+    <meta name="fragment" content="!">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <!-- To disable phone number typing.-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="TinTM - Đọc tin theo cách của bạn">
+    <link rel="shortcut icon" href="/favicon.ico?v=0.0.4">
+    <!-- end Meta section-->
+    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <!-- link(href='/linker/mobile/lib/ion-md-input/css/ion-md-input.min.css', rel='stylesheet')-->
+    <link href="lib/ionic-material/dist/ionic.material.min.css" rel="stylesheet">
+    <!-- Compiled and minified CSS-->
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/tabSlideBox.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/tintm.css" rel="stylesheet">
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.min.js?version=1"></script>
+    <script src="lib/ionic-material/dist/ionic.material.min.js"></script>
+    <!-- script(src='/linker/mobile/lib/ion-md-input/js/ion-md-input.min.js')-->
+    <script src="lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+    <script type="text/javascript" src="js/bindonce.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    <script src="lib/angular-timeago.min.js"></script>
+    <!-- Compiled and minified JavaScript-->
+    <script src="js/tabSlideBox.js"></script>
+    <script src="lib/ionic-ripple/ionic-ripple.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/appController.js"></script>
+    <script src="js/homeController.js"></script>
+    <script src="js/detailController.js"></script>
+    <script src="js/trendingDetailController.js"></script>
+    <script src="js/commonServices.js"></script>
+    <script src="js/dataService.js"></script>
+</head>
+<body ng-app="starter" ng-controller="AppCtrl">
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=770310669722840";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!--<script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1394423097257367',
+                xfbml: true,
+                version: 'v2.8'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>-->
+
+    <ion-nav-view animation="no-animation"></ion-nav-view>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-66643032-1', 'auto');
+          ga('send', 'pageview');
+    </script>
+
+    <!-- Cordova reference, this is added to your app when it's built. -->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="scripts/index.js"></script>
+</body>
+</html>

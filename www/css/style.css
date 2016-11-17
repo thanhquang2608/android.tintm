@@ -1,0 +1,99 @@
+.slider {
+  height:100%;
+  height: -webkit-calc(100% - 65px);
+  height: expression(100% - 65px);
+  height: -moz-calc(100% - 65px);
+  height: -o-calc(100% - 65px);
+}
+
+.pager.slider {
+  height:100%;
+  /*padding-top: 20px;*/
+}
+
+.slider-pager-top .slider-pager {
+  top : 0px;
+}
+
+.slider-slide h3{
+  color: #000000;
+  margin-top:10px;
+}
+.scroll{
+  height:100%;
+}
+
+.tabbed-slidebox .tsb-icons:after{
+  display:none;
+}
+
+[ripple]{
+  overflow: hidden;
+}
+
+.rip {
+  display: block;
+  position: absolute;
+  background:rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  -webkit-transform:scale(0);
+  -moz-transform:scale(0);
+  -o-transform:scale(0);
+  transform:scale(0);
+}
+
+.animate-ripple {
+  -webkit-animation:ripple 0.65s linear;
+  -moz-animation:ripple 0.65s linear;
+  -ms-animation:ripple 0.65s linear;
+  -o-animation:ripple 0.65s linear;
+  animation:ripple 0.65s linear;
+}
+
+@-webkit-keyframes ripple {
+  100% {opacity: 0; -webkit-transform: scale(2.5);}
+}
+@-moz-keyframes ripple {
+  100% {opacity: 0; -moz-transform: scale(2.5);}
+}
+@-o-keyframes ripple {
+  100% {opacity: 0; -o-transform: scale(2.5);}
+}
+@keyframes ripple {
+  100% {opacity: 0; transform: scale(2.5);}
+}
+
+.col {
+  padding: 0px;
+}
+
+.customSliderPager {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 10px;
+  text-align: center;
+  margin-left: 55px;
+  padding-right: 110px;
+}
+
+.customSliderPager .customSlider-pager-page {
+  display: inline-block;
+  margin: 0px 6px;
+  width: 5px;
+  color: #dcdcdc;
+  text-decoration: none;
+  opacity: 0.3;
+}
+
+.customSliderPager .customSlider-pager-page.active {
+  -webkit-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+  opacity: 1;
+}
+
+.customSliderPager .icon {
+  font-size: 8px;
+}

@@ -1,0 +1,80 @@
+﻿<ion-view view-title="">
+    <!-- Custom slider below main title -->
+    <div class="customSliderPager">
+        <div class="trending-title" ng-bind="title">
+        </div>
+    </div>
+    <ion-nav-bar class="bar-tm">
+        <ion-nav-back-button ripple ng-click="goBack()">
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-pane ng-loak style="background-color: #E8E8E8 !important;">
+        <ion-content scroll="false">
+            <ion-slide class="slide-content row tm-row">
+                <!-- Right -->
+                <div class="col s4 m4 right relative" ng-init="topshareCat = 10;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth">
+                    <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in topShareArticles[topshareCat]" bo-class="{'have-thumb': article.haveImage}">
+                        <div class="card card-small">
+                            <div class="main-content" ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
+                                <div class="card-image">
+                                    <a target="_blank">
+                                        <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}">
+                                    </a>
+                                </div>
+                                <div class="card-content">
+                                    <a target="_blank" class="article-title-a">
+                                        <h2>{{::article.Title}}</h2>
+                                    </a>
+                                    <div class="news-info main">
+                                        <span class="news-source" bo-bind="::article.SourceName"></span>
+                                        <span class="news-time">
+                                            <span class="timeago" time-ago="" from-time="{{::article.TimeString}}"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                    <ion-spinner ng-if="topShareLoading[topshareCat]"></ion-spinner>
+                </div>
+                <!-- End right -->
+                <!-- Left -->
+                <div infinite-scroll="loadTrendingArticles()" infinite-scroll-distance='5' infinite-scroll-parent="true" ng-class="{'col s8 m8': isLargeWidth}">
+                    <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in articles track by article.NewsId">
+                        <div class="tm-row">
+                            <div class="col s12 m12">
+                                <div class="card" ng-class="{'card-small': !article.isBig}">
+                                    <div class="main-content">
+                                        <div class="card-image">
+                                            <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat, backToPrevious: true })" target="_blank">
+                                                <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images || article.Thumbnail">
+                                            </a>
+                                        </div>
+                                        <div class="">
+                                            <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat, backToPrevious: true })" target="_blank" class="article-title-a">
+                                                <div class="card-title item-text-wrap font-23" bo-bind="::article.Title"></div>
+                                            </a>
+                                            <div class="news-info main">
+                                                <span class="news-source" bo-bind="article.SourceName"></span>
+                                                <span class="news-time">
+                                                    <span class="timeago" time-ago="" from-time="{{::article.TimeString}}"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="card-content float-left">
+                                            <p bo-bind="::article.Summary" class="summary font-15" ng-class="{expanded: isExpandedSummary}" ng-click="isExpandedSummary = !isExpandedSummary; showArticleRelative(article.NewsId); expandedRelative(article)"></p>
+                                        </div>
+                                        <div class="card-action">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                    <div class="text-center"><ion-spinner ng-if="loading"></ion-spinner></div>
+                </div>
+                <!--End Left -->
+            </ion-slide>
+        </ion-content>
+    </ion-pane>
+</ion-view>
