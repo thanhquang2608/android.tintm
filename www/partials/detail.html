@@ -8,7 +8,7 @@
         </span>
     </div>
     <ion-nav-bar class="bar-tm">
-        <ion-nav-back-button ripple ng-click="goBack()">
+        <ion-nav-back-button   ng-click="goBack()">
         </ion-nav-back-button>
     </ion-nav-bar>
     <ion-pane ng-loak>
@@ -19,12 +19,13 @@
                 <ion-slide class="slide-content row tm-row">
                     <!-- Right -->
                     <div class="col s4 m4 right relative" ng-init="topshareCat = 13;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth">
-                        <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in articles[topshareCat] track by article.NewsId" bo-class="{'have-thumb': article.haveImage}">
+                        <div class="top-share-title">Tin chia sẻ nhiều</div>
+                        <ion-item class="tm-card-wide md-card md-shadow--2dp news-item no-border" bindonce ng-repeat="article in articles[topshareCat] track by article.NewsId" bo-class="{'have-thumb': article.haveImage}">
                             <div class="card card-small">
-                                <div class="main-content" ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
+                                <div class="main-content" ng-click="goOtherArticle(article.CatSlug, article.NewsSlug)">
                                     <div class="card-image">
                                         <a target="_blank">
-                                            <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}">
+                                            <img hide-image-if-not-exists bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images">
                                         </a>
                                     </div>
                                     <div class="card-content">
@@ -57,26 +58,23 @@
                                 </span>
                             </div>
                             <div class="content" ng-if="!loading" ng-bind-html="article.Content"></div>
-                            <div class="social">
-                                <div class="social social-item fb-like" style="width: 40%">
-                                    <iframe ng-src="{{article.FacebookShare}}" scrolling='no' frameborder='0' style='border:none; overflow:hidden; width:90px;height:20px; margin:0 auto;text-align:center;float: left;' allowtransparency='true'></iframe>
-                                </div>
-                                <div class="social-item">
-                                    <!--<script src="https://apis.google.com/js/platform.js" async defer>
-                        { lang: 'vi' }
-                    </script>-->
-                                    <!--<a class="g-plus" data-action="share" data-annotation="none" data-href='{{::article.Path}}'>
-                        <img src="https://www.gstatic.com/images/icons/gplus-64.png" alt="Share on Google+" />
-                    </a>-->
-                                    <a style="float:left; width: 50px" class="social-share" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tintm.com{{::article.Path}}"
-                                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                                        <img src="images/facebook-32.png" alt="Share on Facebook" />
+                            <div class="social" id="social-{{::article.NewsId}}">               
+                                <span class="social">
+                                    <div class="social-item fb-like">
+                                        <iframe ng-src="{{article.FacebookShare}}" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px;height:28px; margin-top: 1px;text-align:center" allowtransparency="true"></iframe>
+                                    </div>
+                                </span>
+                                <span class="social-sharing is-small" data-permalink="{{::article.Link}}">
+                                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tintm.com{{::article.Path}}" title="Chia sẻ qua Facebook" class="share-facebook">
+                                        <span aria-hidden="true" class="icon-social sicon-facebook"></span>
+                                        <span class="share-title">Chia sẻ</span>
+                                        <span class="share-count"></span>
                                     </a>
-                                    <a style="float:left" class="social-share" href="https://plus.google.com/share?url=http://www.tintm.com{{::article.Path}}"
-                                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                                        <img src="images/gplus-32.png" alt="Share on Google+" />
+                                    <a target="_blank" href="https://plus.google.com/share?url=http://www.tintm.com{{::article.Path}}" title="Chia sẻ qua Google+" class="share-google">
+                                        <span aria-hidden="true" class="icon-social sicon-google"></span>
+                                        <span class="share-title">Chia sẻ</span>
                                     </a>
-                                </div>
+                                </span>
                             </div>
                             <!--Tin lien quan-->
                             <div class="section relative more clear" ng-if="articlesRelative && articlesRelative.length > 0">
@@ -96,12 +94,12 @@
                                             </span>
                                             <!--<span class="card-action">
                               <a ng-if="$state.includes('detail1')" ui-sref="detail(article.CatSlug, article.NewsSlug)" ui-sref-opts="{reload: true, notify: true}">
-                                <button ripple class="button">
+                                <button   class="button">
                                   <ion-icon class="ion-ios-bolt"></ion-icon>
                                 </button>
                               </a>
                               <a ng-if="$state.includes('detail')" ui-sref="detail1(article.CatSlug, article.NewsSlug)" ui-sref-opts="{reload: true, notify: true}">
-                                <button ripple class="button">
+                                <button   class="button">
                                   <ion-icon class="ion-ios-bolt"></ion-icon>
                                 </button>
                               </a>
@@ -132,12 +130,12 @@
                                             </span>
                                             <!--<span class="card-action">
                               <a ng-if="$state.includes('detail1')" ui-sref="detail(article.CatSlug, article.NewsSlug)" ui-sref-opts="{reload:true}">
-                                <button ripple class="button">
+                                <button   class="button">
                                   <ion-icon class="ion-ios-bolt"></ion-icon>
                                 </button>
                               </a>
                               <a ng-if="$state.includes('detail')" ui-sref="detail1(article.CatSlug, article.NewsSlug)" ui-sref-opts="{reload:true}">
-                                <button ripple class="button">
+                                <button   class="button">
                                   <ion-icon class="ion-ios-bolt"></ion-icon>
                                 </button>
                               </a>
@@ -160,12 +158,13 @@
                 <ion-slide class="slide-content row tm-row" ng-repeat="index in arr" ng-if="arr.length > 0">
                     <!-- Right -->
                     <div class="col s4 m4 right relative" ng-init="topshareCat = 13;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth || index == pager.current">
-                        <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in articles[topshareCat] track by article.NewsId" bo-class="{'have-thumb': article.haveImage}">
+                        <div class="top-share-title">Tin chia sẻ nhiều</div>
+                        <ion-item class="tm-card-wide md-card md-shadow--2dp news-item no-border" bindonce ng-repeat="article in articles[topshareCat] track by article.NewsId" bo-class="{'have-thumb': article.haveImage}">
                             <div class="card card-small">
-                                <div class="main-content" ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
+                                <div class="main-content" ng-click="goOtherArticle(article.CatSlug, article.NewsSlug)">
                                     <div class="card-image">
                                         <a target="_blank">
-                                            <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}">
+                                            <img hide-image-if-not-exists bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images">
                                         </a>
                                     </div>
                                     <div class="card-content">
@@ -198,26 +197,23 @@
                                 </span>
                             </div>
                             <div class="content" ng-if="!loadings[index]" ng-bind-html="articles[index].Content"></div>
-                            <div class="social" ng-if="articles[index]" style="display: inline-block; width: 100%;">
-                                <div class="social social-item fb-like" style="width: 40%">
-                                    <iframe ng-src="{{article.FacebookShare}}" scrolling='no' frameborder='0' style='border:none; overflow:hidden; width:90px;height:20px; margin:0 auto;text-align:center;float: left;' allowtransparency='true'></iframe>
-                                </div>
-                                <div class="social-item">
-                                    <!--<script src="https://apis.google.com/js/platform.js" async defer>
-                        { lang: 'vi' }
-                    </script>-->
-                                    <!--<a class="g-plus" data-action="share" data-annotation="none" data-href='{{::article.Path}}'>
-                                        <img src="https://www.gstatic.com/images/icons/gplus-64.png" alt="Share on Google+" />
-                                    </a>-->
-                                    <a style="float:left; width: 50px" class="social-share" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tintm.com{{::articles[index].Path}}"
-                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                        <img src="images/facebook-32.png" alt="Share on Facebook" />
-                    </a>
-                    <a style="float:left" class="social-share" href="https://plus.google.com/share?url=http://www.tintm.com{{::articles[index].Path}}"
-                       onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-                        <img src="images/gplus-32.png" alt="Share on Google+" />
-                    </a>
-                                </div>
+                            <div class="social" ng-if="articles[index]" style="display: inline-block; width: 100%;" id="social-{{::articles[index].NewsId}}">
+                                <span class="social">
+                                    <div class="social-item fb-like">
+                                        <iframe ng-src="{{articles[index].FacebookShare}}" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px;height:28px; margin-top: 1px;text-align:center" allowtransparency="true"></iframe>
+                                    </div>
+                                </span>
+                                <span class="social-sharing is-small" data-permalink="{{::article.Link}}">
+                                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.tintm.com{{::articles[index].Path}}" title="Chia sẻ qua Facebook" class="share-facebook">
+                                        <span aria-hidden="true" class="icon-social sicon-facebook"></span>
+                                        <span class="share-title">Chia sẻ</span>
+                                        <span class="share-count"></span>
+                                    </a>
+                                    <a target="_blank" href="https://plus.google.com/share?url=http://www.tintm.com{{::articles[index].Path}}" title="Chia sẻ qua Google+" class="share-google">
+                                        <span aria-hidden="true" class="icon-social sicon-google"></span>
+                                        <span class="share-title">Chia sẻ</span>
+                                    </a>
+                                </span>
                             </div>
                         </div>
                         <div class="text-center"><ion-spinner ng-if="loadings[index]"></ion-spinner></div>

@@ -5,20 +5,21 @@
         </div>
     </div>
     <ion-nav-bar class="bar-tm">
-        <ion-nav-back-button ripple ng-click="goBack()">
+        <ion-nav-back-button   ng-click="goBack()">
         </ion-nav-back-button>
     </ion-nav-bar>
     <ion-pane ng-loak style="background-color: #E8E8E8 !important;">
         <ion-content scroll="false">
             <ion-slide class="slide-content row tm-row">
                 <!-- Right -->
-                <div class="col s4 m4 right relative" ng-init="topshareCat = 10;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth">
-                    <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in topShareArticles[topshareCat]" bo-class="{'have-thumb': article.haveImage}">
+                <div class="col s4 m4 right relative text-align-left" ng-init="topshareCat = 10;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth">
+                    <div class="top-share-title">Tin chia sẻ nhiều</div>
+                    <ion-item class="tm-card-wide md-card md-shadow--2dp news-item no-border" bindonce ng-repeat="article in topShareArticles[topshareCat]" bo-class="{'have-thumb': article.haveImage}">
                         <div class="card card-small">
                             <div class="main-content" ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
                                 <div class="card-image">
                                     <a target="_blank">
-                                        <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}">
+                                        <img hide-image-if-not-exists bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images">
                                     </a>
                                 </div>
                                 <div class="card-content">
@@ -47,12 +48,12 @@
                                     <div class="main-content">
                                         <div class="card-image">
                                             <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat, backToPrevious: true })" target="_blank">
-                                                <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images || article.Thumbnail">
+                                                <img hide-image-if-not-exists bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images || article.Thumbnail">
                                             </a>
                                         </div>
                                         <div class="">
                                             <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat, backToPrevious: true })" target="_blank" class="article-title-a">
-                                                <div class="card-title item-text-wrap font-23" bo-bind="::article.Title"></div>
+                                                <div class="card-title item-text-wrap font-22" bo-bind="::article.Title"></div>
                                             </a>
                                             <div class="news-info main">
                                                 <span class="news-source" bo-bind="article.SourceName"></span>

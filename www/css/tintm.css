@@ -13,7 +13,7 @@ ion-slide.slide-content {
 
 .news-item {
   padding: 0px !important;
-  max-width: 680px;
+  /*max-width: 680px;*/
   margin: auto;
 }
 
@@ -43,11 +43,23 @@ ion-slide.slide-content {
   padding-top: 5px;
   padding-left: 5px;
   padding-right: 5px;
+
+}
+
+.tm-row .card-small .card-image img {
+  width: 120px !important;
+  height: 80px!important;
 }
 
 @media only screen and (min-width: 420px) {
   .tm-row .card .card-image img {
     max-height: 300px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .tm-row .card .card-image img {
+    max-height: 400px;
   }
 }
 
@@ -92,7 +104,7 @@ ion-slide.slide-content {
 
 .item {
   border: none;
-  max-width: 600px;
+  /*max-width: 600px;*/
   margin: auto;
 }
 
@@ -285,7 +297,7 @@ a.article-title-a, a.article-title-a:active, a.article-title-a:visited {
 }
 
 .news-item .card-action button.active, .news-item .card-action button:active {
-  background-color: #cccccc;
+  /*background-color: #cccccc;*/
 }
 
 .card-action ion-icon {
@@ -400,6 +412,7 @@ a.article-title-a, a.article-title-a:active, a.article-title-a:visited {
     display: inline-block;
     float: left;
     margin-left: 5px;
+    margin-right: 10px;
 }
 .main-content div:active a, .main-content div:active .main .news-source, 
 .main-content div:active .main .news-time, .main-content div:active,
@@ -421,7 +434,7 @@ button:active, button:active ion-icon {
 }
 
 .article-detail {
-    max-width: 600px;
+    /*max-width: 600px;*/
     margin: auto;
 }
 
@@ -431,6 +444,10 @@ button:active, button:active ion-icon {
 
 .font-23 {
     font-size: 23px !important;
+}
+
+.font-22 {
+    font-size: 22px !important;
 }
 
 .font-15 {
@@ -464,4 +481,20 @@ button:active, button:active ion-icon {
   display: block;
   margin-bottom: 0px;
   padding: 0px;
+}
+
+.no-border {
+    border: none !important;
+}
+
+.top-share-title {
+    text-transform: uppercase;
+    margin-top: 8px;
+    font-size: 11pt;
+    font-weight: 400;
+    color: #b33d3d;
+}
+
+.text-align-left {
+    text-align: left;
 }

@@ -254,7 +254,7 @@ app.controller('AppCtrl', function ($scope, $http, $ionicHistory, $timeout, $sta
     $scope.getUrlShareFacebook = function (url) {
         var host = "http://www.tintm.com";
         url = host + url;
-        var baseUrl = "https://www.facebook.com/plugins/like.php?locale=vi_VN&href={url}&layout=button_count&action=like&size=small&show_faces=false&data-share=true&share=false";
+        var baseUrl = "https://www.facebook.com/plugins/like.php?locale=vi_VN&href={url}&layout=button&action=like&size=small&show_faces=false&data-share=false&share=false";
         return $sce.trustAsResourceUrl(baseUrl.replace("{url}", url));
     }
     /////////////////////////////

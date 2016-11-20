@@ -1,5 +1,5 @@
-app.controller("DetailCtrl", ['$rootScope', "$scope", "$sce", "$stateParams", "$q", "$location", "$window", '$timeout', 'ionicMaterialMotion', 'ionicMaterialInk', '$http', '$ionicHistory', '$ionicConfig', '$state', 'dataService', 'commonServices',
-    function ($rootScope, $scope, $sce, $stateParams, $q, $location, $window, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $ionicHistory, $ionicConfig, $state, dataService, commonServices) {
+app.controller("DetailCtrl", ['$rootScope', "$scope", "$sce", "$stateParams", "$q", "$location", "$window", '$timeout', 'ionicMaterialMotion', 'ionicMaterialInk', '$http', '$ionicHistory', '$ionicConfig', '$state', 'dataService', 'commonServices', '$ionicSlideBoxDelegate',
+    function ($rootScope, $scope, $sce, $stateParams, $q, $location, $window, $timeout, ionicMaterialMotion, ionicMaterialInk, $http, $ionicHistory, $ionicConfig, $state, dataService, commonServices, $ionicSlideBoxDelegate) {
 
         $timeout(function(){
             ionicMaterialInk.displayEffect();
@@ -63,7 +63,8 @@ app.controller("DetailCtrl", ['$rootScope', "$scope", "$sce", "$stateParams", "$
            // Tìm Category hiện tại
            if (!$scope.CatId) {
                $scope.Category = $scope.findCategoryBySlug($scope.CatSlug);
-               $scope.TopIds = dataService.getIds()[$scope.Category.Id];
+               var catId = $scope.Category.Id === 12 ? 11 : $scope.Category.Id;
+               $scope.TopIds = dataService.getIds()[catId];
                debug.log($scope.TopIds);
                for(var i = 0, len = $scope.TopIds.length; i < len; i++) {
                    var topid = $scope.TopIds[i];
@@ -76,7 +77,8 @@ app.controller("DetailCtrl", ['$rootScope', "$scope", "$sce", "$stateParams", "$
                }
            } else {
                $scope.Category = $scope.findCategoryById($scope.CatId);
-               $scope.TopIds = dataService.getIds()[$scope.Category.Id];
+               var catId = $scope.Category.Id === 12 ? 11 : $scope.Category.Id;
+               $scope.TopIds = dataService.getIds()[catId];
 
                var begin = $scope.TopIds.indexOf($scope.NewsId);
                if (begin < 0) {
@@ -99,6 +101,11 @@ app.controller("DetailCtrl", ['$rootScope', "$scope", "$sce", "$stateParams", "$
             commonServices.getArticle(newsId).then(function (response) {
                 $scope.generateUrl(response);
                 response.FacebookShare = getUrlShareFacebook(response.Path);
+                setTimeout(function () {
+                    var selector = "#social-" + response.NewsId + " .social-sharing";
+                    var socialButtons = $(selector);
+                    CSbuttons.socialSharing(socialButtons, response.Link);
+                }, 1000);
                 if (callback) callback(response);
             }, function (err) {
                 if (callback) callback({});
@@ -242,6 +249,10 @@ app.controller("DetailCtrl", ['$rootScope', "$scope", "$sce", "$stateParams", "$
             debug.log('Go other article');
 
             reInitVariables();
+            var currentIndex = $ionicSlideBoxDelegate.currentIndex();
+            if (currentIndex != 0) {
+                $ionicSlideBoxDelegate.slide(0);
+            }
 
             $scope.CatSlug = catSlug;
             $scope.Slug = slug;
@@ -262,11 +273,7 @@ app.controller("DetailCtrl", ['$rootScope', "$scope", "$sce", "$stateParams", "$
                 //}, 0);
 
                 // if ($scope.article.Related) {
-                $scope.loadArticlesRelative($scope.article.NewsId, $scope.article.Related,
-                  function done(articles) {
-                      $scope.articlesRelative.push.apply($scope.articlesRelative, articles);
-                  },
-                  function fill(articles) {
+                $scope.loadArticlesRelative($scope.article.NewsId, function done(articles) {
                       $scope.articlesRelative.push.apply($scope.articlesRelative, articles);
                   });
                 // }

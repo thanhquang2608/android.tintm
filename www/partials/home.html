@@ -30,13 +30,14 @@
                     <!--Tin noi bat-->
                     <ion-slide class="slide-content row tm-row" bindonce ng-repeat="cat in cats">
                         <!-- Right -->
-                        <div class="col s4 m4 right relative" ng-init="topshareCat = 10;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth || (cat !== undefined && currentCatId == cat)">
-                            <ion-item class="tm-card-wide md-card md-shadow--2dp news-item" bindonce ng-repeat="article in articles[topshareCat] track by article.NewsId" bo-class="{'have-thumb': article.haveImage}">
+                        <div class="col s4 m4 right relative text-align-left" ng-init="topshareCat = 10;loadTopShareArticles(topshareCat);" ng-if="isLargeWidth || (cat !== undefined && currentCatId == cat)">
+                            <div class="top-share-title">Tin chia sẻ nhiều</div>
+                            <ion-item class="tm-card-wide md-card md-shadow--2dp news-item no-border" bindonce ng-repeat="article in articles[topshareCat] track by article.NewsId" bo-class="{'have-thumb': article.haveImage}">
                                 <div class="card card-small">
                                     <div class="main-content" ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
                                         <div class="card-image">
                                             <a target="_blank">
-                                                <img hide-image-if-not-exists-remove bo-src="::article.Images" alt="{{::article.Title}}">
+                                                <img hide-image-if-not-exists bo-src="::article.Images" alt="{{::article.Title}}" ng-if="article.Images">
                                             </a>
                                         </div>
                                         <div class="card-content">
@@ -71,7 +72,7 @@
                                                     </div>
                                                     <div class="info">
                                                         <a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })" target="_blank" class="article-title-a">
-                                                            <div class="card-title item-text-wrap font-23" bo-bind="::article.Title"></div>
+                                                            <div class="card-title item-text-wrap font-22" bo-bind="::article.Title"></div>
                                                         </a>
                                                         <div class="news-info main">
                                                             <span class="news-source" bo-bind="::article.SourceName"></span>
@@ -98,7 +99,7 @@
                                         <img src="images/gplus-32.png" alt="Share on Google+" />
                                     </a>-->
 
-                                                        <button ripple class="button" ng-if="article.Related > 0" ng-click="expandedRelative(article); log('[DEBUG], expand relative')">
+                                                        <button class="button" ng-if="article.Related > 0" ng-click="expandedRelative(article); log('[DEBUG], expand relative')">
                                                             <ion-icon class="ion-ios-arrow-down"></ion-icon>
                                                         </button>
                                                     </div>
@@ -120,7 +121,7 @@
                                                                     </span>
                                                                     <span class="card-action">
                                                                         <!--<a ng-click="articleDetail({catSlug: article.CatSlug, slug: article.NewsSlug, viewCatId : cat })">
-                                                      <button ripple class="button">
+                                                      <button   class="button">
                                                         <ion-icon class="ion-ios-bolt"></ion-icon>
                                                       </button>
                                                     </a>-->
@@ -130,7 +131,7 @@
                                                         </ion-list>
                                                         <div class="action">
                                                             <!--<button class="button left" ng-if="article.Related > 3">Xem thêm {{article.Related}} tin liên quan</button>-->
-                                                            <button ripple class="button right no-bold" ng-if="article.Related > 0" ng-click="expandedRelative(article); log('[DEBUG], collapse relative')">
+                                                            <button class="button right no-bold" ng-if="article.Related > 0" ng-click="expandedRelative(article); log('[DEBUG], collapse relative')">
                                                                 Đóng <ion-icon class="ion-ios-arrow-up"></ion-icon>
                                                             </button>
                                                         </div>
@@ -149,14 +150,14 @@
                                                 <div class="main-content">
                                                     <div class="card-image">
                                                         <a ng-click="trendingDetail({trendingId: specialArticle.Id, trendingTitle: specialArticle.Title})" target="_blank">
-                                                            <img hide-image-if-not-exists-remove bo-src="::specialArticle.Image" alt="{{::specialArticle.Title}}" ng-if="specialArticle.Image || specialArticle.Thumbnail">
+                                                            <img hide-image-if-not-exists bo-src="::specialArticle.Image" alt="{{::specialArticle.Title}}" ng-if="specialArticle.Image || specialArticle.Thumbnail">
                                                         </a>
                                                     </div>
                                                     <div class="card-content">
                                                         <a ng-click="trendingDetail({trendingId: specialArticle.Id, trendingTitle: specialArticle.Title})" target="_blank" class="article-title-a">
-                                                            <div class="card-title item-text-wrap" bo-bind="::specialArticle.Title"></div>
+                                                            <div class="card-title item-text-wrap font-22" bo-bind="::specialArticle.Title"></div>
                                                         </a>
-                                                        <p bo-bind="::specialArticle.Description" class="summary" ng-class="{expanded: isExpandedSummary}" ng-click="isExpandedSummary = !isExpandedSummary"></p>
+                                                        <p bo-bind="::specialArticle.Description" class="summary font-15" ng-class="{expanded: isExpandedSummary}" ng-click="isExpandedSummary = !isExpandedSummary"></p>
                                                     </div>
                                                     <div class="card-action">
                                                     </div>
